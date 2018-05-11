@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+<bean id="ParentTriangle" class ="org.madhu.spring.bean.Triangle" >
+
+<!-- Nested bean -->  
+<property name="lPoint">
+<list>
+<ref bean ="c"/>
+ <ref bean ="b"/>
+</list>
+
+</property>
+
+ <property  name="a" >
+ <bean  class ="org.madhu.spring.bean.points">
+  <property  name="x" value ="0"/>
+  <property  name="y" value ="0"/>
+  </bean> 
+ </property>
+  
+<property  name="b" ref ="b"/>
+ <property  name="c" ref ="c"/>  
+
+ </bean>
+ <bean id ="Triangle" class ="org.madhu.spring.bean.Triangle" parent ="ParentTriangle" scope="prototype" init-method = "myInit">
+ <property name="lPoint">
+<list merge="true">
+<ref bean ="a"/>
+</list>
+
+</property>
+ </bean>
+ 
+ <alias name ="Triangle" alias = "triangle-alias" />
+  <bean id="a"  class ="org.madhu.spring.bean.points"> <property  name="x" value ="0"/> <property  name="y" value ="0"/> </bean> 
+ <bean id = "b" class ="org.madhu.spring.bean.points"><property  name="x" value ="20"/> <property  name="y" value ="0"/></bean>
+ <bean id = "c" class ="org.madhu.spring.bean.points"><property  name="x" value ="-20"/> <property  name="y" value ="0"/></bean>
+ <bean id = "rectangle" class ="org.madhu.spring.bean.Rectangle">
+ <property name= "i" ref ="a"/>
+ <property name= "j" ref ="b"/>
+ <property name= "k" ref ="c"/>
+ <property name= "l" ref ="c"/>
+
+ 
+ </bean>
+
+
+</beans>
